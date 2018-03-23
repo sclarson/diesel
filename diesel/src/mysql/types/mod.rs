@@ -127,13 +127,33 @@ impl FromSql<Bool, Mysql> for bool {
     }
 }
 
-impl<ST> HasSqlType<Unsigned<ST>> for Mysql
+impl HasSqlType<Unsigned<SmallInt>> for Mysql
 where
-    ST: NotNull + SingleValue + QueryId,
-    Mysql: HasSqlType<ST>,
+    SmallInt: NotNull + SingleValue + QueryId,
+    Mysql: HasSqlType<SmallInt>,
 {
     fn metadata(lookup: &()) -> MysqlType {
-        <Mysql as HasSqlType<ST>>::metadata(lookup)
+        <Mysql as HasSqlType<SmallInt>>::metadata(lookup)
+    }
+}
+
+impl HasSqlType<Unsigned<Integer>> for Mysql
+where
+    Integer: NotNull + SingleValue + QueryId,
+    Mysql: HasSqlType<Integer>,
+{
+    fn metadata(lookup: &()) -> MysqlType {
+        <Mysql as HasSqlType<Integer>>::metadata(lookup)
+    }
+}
+
+impl HasSqlType<Unsigned<BigInt>> for Mysql
+where
+    BigInt: NotNull + SingleValue + QueryId,
+    Mysql: HasSqlType<BigInt>,
+{
+    fn metadata(lookup: &()) -> MysqlType {
+        <Mysql as HasSqlType<BigInt>>::metadata(lookup)
     }
 }
 
